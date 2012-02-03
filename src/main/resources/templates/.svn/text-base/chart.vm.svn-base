@@ -1,0 +1,62 @@
+##<script language="JavaScript" type="text/javascript" src="${staticresourceprefix}/includes/js/effects/prototype-min.js"></script>
+
+<table class=tableBorder border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table id="server" style="display:none" border="0" cellpadding="3" cellspacing="1" width="75%">
+		<tr>
+			<td>
+				<h3> $i18n.getText("admin.table.header") </h3>
+			</td>
+		</tr>
+		#foreach($server in $serverList)
+			<tr>
+				<td>
+					<p>Name: $server.getName()</p>
+				</td>
+				<td>
+					<p>Url: $server.getUrl()</p>
+				</td>
+			</tr>
+		#end
+ 	</table>
+    <tr>
+        <td>
+            <table id="portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+
+            	
+                <tr class=rowHeader>
+                    <td class="colHeaderLink">
+                        $title: <b>$job</b> ($i18n.getText("portlet.chart.property.hudsonurl.name"): $hudsonUrl)</b>
+                        <input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
+                    </td>
+                </tr>
+                <tr tr class=rowNormal>
+                    <td id="trendimage"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+addChartWithCorrectWidth();
+  function addChartWithCorrectWidth(){
+    var imageElement = document.createElement('img');
+    imageElement.setAttribute('src', '$trendUrl');
+    imageElement.setAttribute('width', $width);
+    imageElement.setAttribute('height', ($width/4|0));
+    trendimage.appendChild(imageElement);
+  }
+
+  Event.observe(window, 'resize', function() {
+      $('trendimage').update('');
+      addChartWithCorrectWidth();
+    }
+  );
+  
+	function display(){
+		if(server.style.display == "none"){
+			server.style.display = "block";
+		}else{
+			server.style.display = "none";
+		} ;
+	}
+</script>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="__MSG_gadget.titleChart__"
+                 directory_title="__MSG_gadget.titleChart__"
+                 description="__MSG_gadget.descriptionChart__"
+                 thumbnail="__ATLASSIAN_BASE_URL__/download/resources/jira-hudson.jira-hudson/thumbnails/chart.png"
+                 >
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+            </Param>
+        </Optional>
+		<Require feature="setprefs"/>
+        <Require feature="dynamic-height" />
+    	<Optional feature="auth-refresh"/> 
+    	<Require feature="views" />
+        <Locale messages="__ATLASSIAN_BASE_URL__/download/resources/jira-hudson.jira-hudson/i18n/ALL_ALL.xml"/>
+    </ModulePrefs>
+    <UserPref name="isConfigured" datatype="hidden" default_value="false"/>
+    <UserPref name="hudsonUrl" display_name="Hudsonname oder Url" default_value="http://localhost:8080/" required="true"/>
+    <UserPref name="job" default_value="" required="true"/>
+    <UserPref name="trend" 
+	     display_name="Trend"
+	     datatype="enum"
+	     default_value="buildtime">
+	  <EnumValue value="test" display_value="Test results"/>
+	  <EnumValue value="warning" display_value="Compiler warnings"/>
+	  <EnumValue value="buildtime" display_value="Build time"/>
+	  <EnumValue value="checkstyle" display_value="Checkstyle findings"/>
+	  <EnumValue value="task" display_value="Open tasks"/>
+	  <EnumValue value="findbugs" display_value="Findbugs findings"/>
+	  <EnumValue value="cobertura" display_value="Cobertura test coverage"/>
+	</UserPref>
+    <Content type="html" view="profile">
+    	<![CDATA[
+    	    <script type="text/javascript" charset="utf-8">
+    	    
+                function makeDOMRequest() {
+				  var params = {};
+				  var prefs = new _IG_Prefs();
+				  var hudsonUrl = prefs.getString("hudsonUrl");
+				  var job = prefs.getString("job");
+				  var trend = prefs.getString("trend");
+				  var width, hight;
+				  if (self.innerHeight) // all except Explorer
+				  {
+				 	width = self.innerWidth;
+				 	hight = self.innerHeight;
+				  }
+				  else if (document.documentElement && document.documentElement.clientHeight)
+				 	// Explorer 6 Strict Mode
+				  {
+				  	width = document.documentElement.clientWidth;
+				  	hight = document.documentElement.clientHeight;
+				  }
+				  else if (document.body) // other Explorers
+				  {
+				  	width = document.body.clientWidth;
+				  	hight = document.body.clientHeight;
+ 				  }
+				  params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues({
+					  hudsonUrl : hudsonUrl,
+					  job : job,
+					  trend : trend,
+					  hight : hight,
+					  width : width
+				  });
+				  params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+				  params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+				  var url = "__ATLASSIAN_BASE_URL__" + "/plugins/servlet/chartservlet";
+				  gadgets.io.makeRequest(url, response, params);
+				};
+				
+				function response(obj) {
+				  document.write(obj.text);
+				  gadgets.window.adjustHeight();
+				};
+				
+				makeDOMRequest();
+
+            </script>
+        ]]>
+    </Content>
+</Module>

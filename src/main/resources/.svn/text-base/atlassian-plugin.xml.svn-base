@@ -1,0 +1,120 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>Allows you to integrate Hudson's status about projects and builds into the JIRA Dashboard.</description>
+        <version>1.0</version>
+        <application-version min="4.0" max="4.4"/>
+        <vendor name="${pom.organization.name}" url="${pom.organization.url}"/>
+        <bundle-instructions>
+          <Import-Package>com.atlassian.templaterenderer,*;resolution:=optional</Import-Package>
+        </bundle-instructions>
+    </plugin-info>
+	<component-import key="i18nResolver"
+	    interface="com.atlassian.sal.api.message.I18nResolver"/>
+	<component-import key="velocityTemplateRenderer"
+	    interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer"></component-import>
+	<component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+	
+	<component-import key="ao" name="Active Objects service" interface="com.atlassian.activeobjects.external.ActiveObjects">
+	  <description>Component to access Active Objects functionality from the plugin</description>
+	</component-import>
+	<component key="tx-processor" name="Transactional Annotation Processor"
+	    class="com.atlassian.activeobjects.external.TransactionalAnnotationProcessor">
+	    <decription>Processes @Transactional annotations.</decription>
+	</component>
+	<component key="server-service" name="Server Service" class="de.codecentric.jira.hudson.plugin.ao.ServerServiceImpl"/>
+    
+    <resource type="i18n" name="admin"
+              location="de.codecentric.jira.hudson.plugin.properties/admin"/>
+	<resource type="i18n" name="admin_en"
+              location="de.codecentric.jira.hudson.plugin.properties/admin_en"/>
+	<resource type="i18n" name="admin_de"
+              location="de.codecentric.jira.hudson.plugin.properties/admin_de"/>
+	<resource type="i18n" name="overview"
+              location="de.codecentric.jira.hudson.plugin.properties/overview"/>
+    <resource type="i18n" name="overview_en"
+              location="de.codecentric.jira.hudson.plugin.properties/overview_en"/>
+    <resource type="i18n" name="overview_de"
+              location="de.codecentric.jira.hudson.plugin.properties/overview_de"/> 
+    <resource type="i18n" name="chart_de"
+              location="de.codecentric.jira.hudson.plugin.properties/chart_de"/>
+    <resource type="i18n" name="chart_en"
+              location="de.codecentric.jira.hudson.plugin.properties/chart_en"/>
+    <resource type="i18n" name="chart"
+              location="de.codecentric.jira.hudson.plugin.properties/chart"/>
+    <resource type="i18n" name="recentbuilds_de"
+              location="de.codecentric.jira.hudson.plugin.properties/recentbuilds_de"/>
+    <resource type="i18n" name="recentbuilds_en"
+              location="de.codecentric.jira.hudson.plugin.properties/recentbuilds_en"/>
+    <resource type="i18n" name="recentbuilds"
+              location="de.codecentric.jira.hudson.plugin.properties/recentbuilds"/>                                                                          
+    <resource type="download" name="i18n/ALL_ALL.xml" location="i18n/ALL_ALL.xml">
+        <param name="content-type" value="text/xml; charset=UTF-8"/>
+    </resource>
+	    
+	<web-section key="hudson_web_section" location="admin_plugins_menu">
+		<label key="Hudson"/>
+	</web-section>
+	
+	<web-section key="hudson_menu_item" location="hudson_web_section"/>
+
+	<web-item key="hudson_web_item" section="hudson_web_section/hudson_menu_item">
+		<label key="Hudson-Instanzen verwalten"/>
+		<link>/plugins/servlet/hudsoninstances</link>
+	</web-item>
+	
+	<ao key="ao-module">
+	  <description>The module configuring the Active Objects service used by this plugin</description>
+	  <entity>de.codecentric.jira.hudson.plugin.ao.Server</entity>
+	</ao>
+	
+	<servlet name="HudsonInstancesServlet" i18n-name-key="overview.name"
+	         key="hudsoninstances"
+	         class="de.codecentric.jira.hudson.plugin.servlet.HudsonInstancesServlet">
+	    <description key="portlet.overview.description"/>
+	    <url-pattern>/hudsoninstances</url-pattern>
+	    <label key="portlet.overview.name" />
+	</servlet>
+	
+	<gadget key="overviewGadget" name="Hudson Job Overview Gadget" location="overviewGadget.xml">
+    	<description key="portlet.overview.description"/>
+	</gadget>
+	    
+	<servlet name="Hudson Job Overview" i18n-name-key="overview.name"
+	         key="overview"
+	         class="de.codecentric.jira.hudson.plugin.servlet.OverviewServlet">
+	    <description key="portlet.overview.description"/>
+	    <url-pattern>/overviewservlet</url-pattern>
+	    <label key="portlet.overview.name" />
+	</servlet>
+	
+	<gadget key="recentBuildsGadget" name="Aktuelle Hudson Builds Gadget" location="recentBuildsGadget.xml">
+    	<description key="portlet.buildlist.description"/>
+	</gadget>
+	
+	<servlet name="Recent Hudson Builds" i18n-name-key="recentbuilds.name"
+	         key="recentbuilds"
+	         class="de.codecentric.jira.hudson.plugin.servlet.RecentBuildsServlet">
+	    <description key="portlet.buildlist.description"/>
+	    <url-pattern>/recentbuildsservlet</url-pattern>
+	    <label key="portlet.recentbuilds.name" />
+	</servlet>
+	
+	<gadget key="chartGadget" name="Chart Gadget" location="chartGadget.xml">
+    	<description key="portlet.chart.description"/>
+	</gadget>
+	
+	<servlet name="Hudson Charts" i18n-name-key="chart.name"
+	         key="chart"
+	         class="de.codecentric.jira.hudson.plugin.servlet.ChartServlet">
+	    <description key="portlet.chart.description"/>
+	    <url-pattern>/chartservlet</url-pattern>
+	    <label key="portlet.chart.name" />
+	</servlet>
+    
+	<resource type="download" namePattern="pics.16x16/" location="pics/16x16/"/>
+	<resource type="download" namePattern="pics.24x24/" location="pics/24x24/"/>
+	<resource type="download" namePattern="pics.32x32/" location="pics/32x32/"/>
+	<resource type="download" namePattern="pics.48x48/" location="pics/48x48/"/>
+	<resource type="download" namePattern="thumbnails/" location="thumbnails/"/>
+	
+</atlassian-plugin>

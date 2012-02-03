@@ -1,0 +1,8 @@
+<messagebundle>
+    <msg name="gadget.titleBuilds">Recent Jenkins Builds</msg>
+    <msg name="gadget.titleOverview">Jenkins Job Overview</msg>
+    <msg name="gadget.titleChart">Jenkins Charts</msg>
+    <msg name="gadget.descriptionBuilds">Shows recent builds on Jenkins, optionally for a specific view or job.</msg>
+    <msg name="gadget.descriptionOverview">Shows status, last success and last failure of Jenkins jobs. Also allows to trigger a new build.</msg>
+    <msg name="gadget.descriptionChart">Shows charts and trends from build statistics.</msg>
+</messagebundle>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/cc/!svn/ver/34602/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util
+END
+HudsonChartTypeValues.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/cc/!svn/ver/34602/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util/HudsonChartTypeValues.java
+END
+URLEncoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/cc/!svn/ver/23345/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util/URLEncoder.java
+END
+TimeDifferenceHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/cc/!svn/ver/34602/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util/TimeDifferenceHelper.java
+END

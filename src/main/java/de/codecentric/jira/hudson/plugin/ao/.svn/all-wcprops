@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/cc/!svn/ver/34652/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/ao
+END
+Server.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/cc/!svn/ver/34653/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/ao/Server.java
+END
+ServerService.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/cc/!svn/ver/34653/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/ao/ServerService.java
+END
+ServerServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/cc/!svn/ver/34653/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/ao/ServerServiceImpl.java
+END

@@ -1,0 +1,68 @@
+<table class=tableBorder border="0" cellpadding="0" cellspacing="0" width="100%">
+	<table id="server" style="display:none" border="0" cellpadding="3" cellspacing="1" width="75%">
+		<tr>
+			<td>
+				<h3> $i18n.getText("admin.table.header") </h3>
+			</td>
+		</tr>
+		#foreach($server in $serverList)
+			<tr>
+				<td>
+					<p>Name: $server.getName()</p>
+				</td>
+				<td>
+					<p>Url: $server.getUrl()</p>
+				</td>
+			</tr>
+		#end
+ 	</table>
+    <tr>
+        <td>
+            <table border="0" cellpadding="3" cellspacing="1" width="100%">
+                <tr class=rowHeader>
+                    <td class="colHeaderLink" colspan=50>
+                    	$i18n.getText("portlet.recentbuilds.title"):
+                        #if($job!="")
+                        	$i18n.getText("portlet.recentbuilds.property.job.name") <b>$job</b>
+						#else
+	                        #if($view!="")
+	                        	$i18n.getText("portlet.recentbuilds.property.view.name") <b>$view</b>
+	                        #else
+	                        	<b>$i18n.getText("portlet.recentbuilds.complete")</b>
+	                        #end
+                        #end
+                    	($i18n.getText("portlet.recentbuilds.property.jenkinsurl.name"): ${jenkinsUrl}) User: $user
+                    	<input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
+                    </td>
+                </tr>
+                <tr class=rowNormal>
+                    <td><b>$i18n.getText("portlet.recentbuilds.status")</b></td>
+                    <td><b>$i18n.getText("portlet.recentbuilds.description")</b></td>
+                    <td><b>$i18n.getText("portlet.recentbuilds.time")</b></td>
+                </tr>
+                #foreach($hBuild in $builds)
+                    <tr class=rowNormal>
+                        <td>
+                        	<img src="$context.contextPath/download/resources/jira-jenkins-plugin.jira-jenkins-plugin/pics.16x16/${hBuild.getColor()}.gif" alt="">
+                        </td>
+                        <td>
+                            <a href=$hBuild.getUrl() target="_blank">$hBuild.getName()</a>
+                        </td>
+                        <td>
+                                $hBuild.getTimestampFromNow()
+                        </td>
+                    </tr>
+                #end
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+	function display(){
+		if(server.style.display == "none"){
+			server.style.display = "block";
+		}else{
+			server.style.display = "none";
+		} ;
+	}
+</script>
