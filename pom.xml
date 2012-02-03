@@ -110,13 +110,13 @@
     <distributionManagement>
 		<repository>
 		  <id>codecentric.internal</id> 
-		  <name>artifactory.codecentric.local-releases</name> 
-		  <url>http://artifactory.codecentric.local:80/artifactory/internal</url> 
+		  <name>artifactory.codecentric.de-releases</name> 
+		  <url>https://artifactory.codecentric.de/artifactory/internal</url> 
 		</repository>
 		<snapshotRepository>
 		  <id>codecentric.snapshots</id> 
-		  <name>artifactory.codecentric.local-snapshots</name> 
-		  <url>http://artifactory.codecentric.local:80/artifactory/snapshots</url> 
+		  <name>artifactory.codecentric.de-snapshots</name> 
+		  <url>https://artifactory.codecentric.de/artifactory/snapshots</url> 
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -161,6 +161,13 @@
 			  </configuration>
 			</plugin>
         </plugins>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
     </build>
 
     <properties>
