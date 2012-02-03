@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.codecentric.jira.hudson.plugin.model;
+package de.codecentric.jira.jenkins.plugin.model;
 
 /**
  * Enum containing all currently supported build outcomes.

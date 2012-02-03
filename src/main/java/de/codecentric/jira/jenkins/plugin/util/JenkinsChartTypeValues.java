@@ -1,4 +1,4 @@
-package de.codecentric.jira.hudson.plugin.util;
+package de.codecentric.jira.jenkins.plugin.util;
 /**
  * Copyright 2012 codecentric GmbH
  * 

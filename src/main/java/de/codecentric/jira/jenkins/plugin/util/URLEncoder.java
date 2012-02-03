@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.codecentric.jira.hudson.plugin.util;
+package de.codecentric.jira.jenkins.plugin.util;
 
 import java.io.UnsupportedEncodingException;
 
