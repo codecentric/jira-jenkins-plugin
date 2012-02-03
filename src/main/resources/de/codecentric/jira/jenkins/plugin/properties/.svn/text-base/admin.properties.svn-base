@@ -1,6 +1,0 @@
-admin.name=Hudson Server
-admin.description=Enter the Hudsoninstances which should be available via name in the gadgets of the Jira-Hudson-Plugin.
-admin.description2=Other instances are still available via their url.
-admin.table.header=Available Server
-admin.table.button.add=add
-admin.table.button.del=delete

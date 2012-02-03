@@ -1,6 +1,0 @@
-admin.name=Hudson Server
-admin.description=Geben Sie hier die Hudsoninstanzen an, welche per Name in den Gadets des Jira-Hudson-Plugins verfügbar sein sollen.
-admin.description2=Andere Instanzen sind weiterhin verfügbar über ihre URL.
-admin.table.header=Verfügbare Server
-admin.table.button.add=hinzufügen
-admin.table.button.del=löschen

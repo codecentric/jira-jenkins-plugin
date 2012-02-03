@@ -1,8 +1,0 @@
-<messagebundle>
-    <msg name="gadget.titleBuilds">Recent Hudson Builds</msg>
-    <msg name="gadget.titleOverview">Hudson Job Overview</msg>
-    <msg name="gadget.titleChart">Hudson Charts</msg>
-    <msg name="gadget.descriptionBuilds">Shows recent builds on Hudson, optionally for a specific view or job.</msg>
-    <msg name="gadget.descriptionOverview">Shows status, last success and last failure of Hudson jobs. Also allows to trigger a new build.</msg>
-    <msg name="gadget.descriptionChart">Shows charts and trends from build statistics.</msg>
-</messagebundle>
