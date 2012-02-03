@@ -2,9 +2,9 @@
 
 dir
 34652
-https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/ao
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/jenkins/plugin/ao
 https://svn.codecentric.de/cc
-delete
+
 
 
 2012-01-31T15:05:38.695493Z
@@ -18,7 +18,7 @@ svn:special svn:externals svn:needs-lock
 
 
 
-
+copied
 
 
 
@@ -38,7 +38,7 @@ file
 34653
 
 
-delete
+
 2012-02-01T07:56:13.046000Z
 08ae75feacf9b93d2442513b15214b66
 2012-02-01T09:03:11.728111Z
@@ -52,7 +52,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -72,7 +72,7 @@ file
 34653
 
 
-delete
+
 2012-02-01T07:58:39.125000Z
 01345c238fae98f7c28c0b919f06b628
 2012-02-01T09:03:11.728111Z
@@ -86,7 +86,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -106,7 +106,7 @@ file
 34653
 
 
-delete
+
 2012-02-01T08:07:50.125000Z
 e30ee37b388b2b84ff371b98c4f76f5d
 2012-02-01T09:03:11.728111Z
@@ -120,7 +120,7 @@ has-props
 
 
 
-
+copied
 
 
 

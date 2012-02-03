@@ -1,0 +1,19 @@
+package de.codecentric.jira.hudson.plugin.ao;
+
+import net.java.ao.Entity;
+import net.java.ao.Preload;
+
+/**
+ * Defines an Server entity.
+ * Server provides a name and an url. 
+ */
+@Preload
+public interface Server extends Entity{
+	String getName();
+	
+	void setName(String name);
+	
+	String getUrl();
+	 
+    void setUrl(String url);
+}

@@ -28,4 +28,31 @@ d38198f2-3605-0410-a739-a69c488de30c
 
 hudson
 dir
+
+
+
+delete
+
+jenkins
+dir
+
+
+
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson
+34626
 

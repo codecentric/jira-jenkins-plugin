@@ -2,9 +2,9 @@
 
 dir
 34626
-https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/servlet
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/jenkins/plugin/servlet
 https://svn.codecentric.de/cc
-delete
+
 
 
 2012-01-26T10:57:33.322760Z
@@ -18,7 +18,7 @@ svn:special svn:externals svn:needs-lock
 
 
 
-
+copied
 
 
 
@@ -38,7 +38,7 @@ file
 34665
 
 
-delete
+
 2012-02-02T10:50:34.723000Z
 7a549cd98d42bc574f9b2159a73b0448
 2012-02-02T10:53:40.584835Z
@@ -52,7 +52,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -86,7 +86,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -101,12 +101,35 @@ has-props
 
 3058
 
+JenkinsInstancesServlet.java
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+
+
+
+
+
+copied
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/servlet/HudsonInstancesServlet.java
+34653
+
 OverviewServlet.java
 file
 34665
 
 
-delete
+
 2012-02-02T10:50:44.457000Z
 b379aabf9736fa26bfdded9ab2f990f0
 2012-02-02T10:53:40.584835Z
@@ -120,7 +143,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -140,7 +163,7 @@ file
 34665
 
 
-delete
+
 2012-02-02T10:50:54.379000Z
 958f646a0f747a7313b39b7c460c2d32
 2012-02-02T10:53:40.584835Z
@@ -154,7 +177,7 @@ has-props
 
 
 
-
+copied
 
 
 

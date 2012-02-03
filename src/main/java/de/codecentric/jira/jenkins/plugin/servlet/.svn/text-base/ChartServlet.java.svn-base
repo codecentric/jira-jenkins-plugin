@@ -1,0 +1,98 @@
+package de.codecentric.jira.hudson.plugin.servlet;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static de.codecentric.jira.hudson.plugin.util.URLEncoder.encodeForURL;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.atlassian.jira.security.JiraAuthenticationContext;
+import com.atlassian.jira.util.I18nHelper;
+import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.templaterenderer.TemplateRenderer;
+import com.atlassian.crowd.embedded.api.User;
+
+import de.codecentric.jira.hudson.plugin.ao.Server;
+import de.codecentric.jira.hudson.plugin.ao.ServerService;
+
+/**
+ *	This class is used to show a graphic from the Hudson Server.
+ */
+
+public class ChartServlet extends HttpServlet {
+	
+    private static final String TEMPLATE_PATH = "/templates/chart.vm";
+    private final TemplateRenderer templateRenderer;
+    private final JiraAuthenticationContext authenticationContext;
+    private final ServerService serverService; 
+ 
+    public ChartServlet(TemplateRenderer templateRenderer, ServerService serverService, JiraAuthenticationContext authenticationContext) {
+        this.templateRenderer = templateRenderer;
+        this.authenticationContext = authenticationContext;
+        this.serverService = checkNotNull(serverService);
+    }
+    
+    /**
+     * This function takes post data and calls doGet()
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doGet(request, response);
+    }
+    
+    /**
+     * This function takes get data and renders the template
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    	Map<String, Object> velocityValues = new HashMap<String, Object>();
+    	
+    	User user = authenticationContext.getLoggedInUser();
+		I18nHelper i18nHelper = new I18nBean(user);
+
+		String urlHudsonServer = req.getParameter("hudsonUrl");
+		String hudsonJob = req.getParameter("job");
+		String trendPropKey = "portlet.chart.trend." + req.getParameter("trend");
+		String type = "";
+		int hight = Integer.parseInt(req.getParameter("hight"));
+		int width = Integer.parseInt(req.getParameter("width"));
+		
+		
+		String trendURL = i18nHelper.getText(trendPropKey + ".key");
+		String trendTitle = i18nHelper.getText(trendPropKey + ".description");
+		
+		//check if urlHudsonServer equals Server.name
+		Server server = serverService.find(urlHudsonServer);
+		if(server!=null){
+			urlHudsonServer = server.getUrl();
+		}
+		
+		if (urlHudsonServer.lastIndexOf('/') < urlHudsonServer.length()-1) {
+			urlHudsonServer += "/";
+		}
+
+		String trendUrl = urlHudsonServer + "job/" + encodeForURL(hudsonJob) + "/" + i18nHelper.getText(trendURL);
+
+		if (StringUtils.isNotEmpty(type)) {
+			urlHudsonServer += "?" + type;
+		}
+
+		velocityValues.put("serverList", serverService.all());
+		velocityValues.put("hudsonUrl", urlHudsonServer);
+		velocityValues.put("job", hudsonJob);
+		velocityValues.put("trendUrl", trendUrl);
+		velocityValues.put("trend", trendURL);
+		velocityValues.put("title", trendTitle);
+		velocityValues.put("hight", hight);
+		velocityValues.put("width", width);
+		
+		resp.setContentType("text/html;charset=utf-8");  
+        templateRenderer.render(TEMPLATE_PATH, velocityValues, resp.getWriter());  
+    }    
+}

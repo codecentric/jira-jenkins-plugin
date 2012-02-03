@@ -2,9 +2,9 @@
 
 dir
 34626
-https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/jenkins/plugin
 https://svn.codecentric.de/cc
-delete
+
 
 
 2012-01-26T10:57:33.322760Z
@@ -18,7 +18,7 @@ svn:special svn:externals svn:needs-lock
 
 
 
-
+copied
 
 
 
@@ -31,26 +31,82 @@ dir
 
 
 
-delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
 
 model
 dir
 
 
 
-delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
 
 servlet
 dir
 
 
 
-delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
 
 util
 dir
 
 
 
-delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
 

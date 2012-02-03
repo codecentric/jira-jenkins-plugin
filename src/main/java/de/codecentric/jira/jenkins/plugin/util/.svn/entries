@@ -2,9 +2,9 @@
 
 dir
 34626
-https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/jenkins/plugin/util
 https://svn.codecentric.de/cc
-delete
+
 
 
 2012-01-23T15:40:49.661679Z
@@ -18,7 +18,7 @@ svn:special svn:externals svn:needs-lock
 
 
 
-
+copied
 
 
 
@@ -45,7 +45,7 @@ philipp.rothe
 
 
 
-
+copied
 
 
 
@@ -60,12 +60,35 @@ philipp.rothe
 
 2795
 
+JenkinsChartTypeValues.java
+file
+
+
+
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
+https://svn.codecentric.de/cc/trunk/codecentric/praktikum/dwu/jira-hudson-plugin/src/main/java/de/codecentric/jira/hudson/plugin/util/HudsonChartTypeValues.java
+34626
+
 TimeDifferenceHelper.java
 file
 
 
 
-delete
+
 2012-01-23T15:35:23.312000Z
 951cc0c5b3b9e832674818ab3823bc7e
 2012-01-23T15:40:49.661679Z
@@ -79,7 +102,7 @@ has-props
 
 
 
-
+copied
 
 
 
@@ -99,7 +122,7 @@ file
 
 
 
-delete
+
 2012-01-23T15:35:35.484000Z
 2a7c5b7a7daf691970c67c9d3d188724
 2009-09-04T20:04:49.090576Z
@@ -113,7 +136,7 @@ has-props
 
 
 
-
+copied
 
 
 
