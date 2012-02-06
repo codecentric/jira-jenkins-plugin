@@ -75,7 +75,7 @@
 	    <label key="portlet.overview.name" />
 	</servlet>
 	
-	<gadget key="overviewGadget" name="Jenkins Job Overview Gadget" location="overviewGadget.xml">
+	<gadget key="overviewGadget" name="Jenkins Job Overview Gadget" location="de/codecentric/jira/jenkins/plugin/gadget/overviewGadget.xml">
     	<description key="portlet.overview.description"/>
 	</gadget>
 	    
@@ -87,7 +87,7 @@
 	    <label key="portlet.overview.name" />
 	</servlet>
 	
-	<gadget key="recentBuildsGadget" name="Aktuelle Jenkins Builds Gadget" location="recentBuildsGadget.xml">
+	<gadget key="recentBuildsGadget" name="Aktuelle Jenkins Builds Gadget" location="de/codecentric/jira/jenkins/plugin/gadget/recentBuildsGadget.xml">
     	<description key="portlet.buildlist.description"/>
 	</gadget>
 	
@@ -99,7 +99,7 @@
 	    <label key="portlet.recentbuilds.name" />
 	</servlet>
 	
-	<gadget key="chartGadget" name="Chart Gadget" location="chartGadget.xml">
+	<gadget key="chartGadget" name="Chart Gadget" location="de/codecentric/jira/jenkins/plugin/gadget/chartGadget.xml">
     	<description key="portlet.chart.description"/>
 	</gadget>
 	
