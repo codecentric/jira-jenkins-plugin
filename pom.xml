@@ -136,6 +136,9 @@
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
+                    <excludes>
+                    	<exclude>dom4j:dom4j</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
