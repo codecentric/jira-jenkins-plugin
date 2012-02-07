@@ -104,12 +104,6 @@
 		  <artifactId>activeobjects-plugin</artifactId>
 		  <version>0.15</version>
 		  <scope>provided</scope>
-		  <exclusions>
-		  	<exclusion>
-		  		<groupId>com.sun.jdmk</groupId>
-		  		<artifactId>jmxtools</artifactId>
-		  	</exclusion>
-		  </exclusions>
 		</dependency> 
 		<dependency>
 		  <groupId>com.google.collections</groupId>
