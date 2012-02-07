@@ -1,4 +1,4 @@
-package de.codecentric.jira.jenkins.plugin.util;
+/*package de.codecentric.jira.jenkins.plugin.util;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -146,7 +146,7 @@ public class TimeDifferenceHelperTest extends TestCase {
 			this.rb = rb;
 		}
 
-		/* only method required for this test */
+		 only method required for this test 
 		public String getText(String s) {
 			return rb.getString(s);
 		}
@@ -237,4 +237,4 @@ public class TimeDifferenceHelperTest extends TestCase {
 		}
 	}
 
-}
+}*/

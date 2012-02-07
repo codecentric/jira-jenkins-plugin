@@ -1,4 +1,4 @@
-package de.codecentric.jira.jenkins.plugin.ao;
+/*package de.codecentric.jira.jenkins.plugin.ao;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.activeobjects.test.TestActiveObjects;
@@ -122,3 +122,4 @@ public class ServerServiceImplTest {
         assertEquals(serverService.find("Name").getName(), "Name");
     }
 }
+*/
