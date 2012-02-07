@@ -40,6 +40,10 @@
     		<scope>provided</scope>
     		<exclusions>
     			<exclusion>
+		          	<groupId>dom4j</groupId>
+      				<artifactId>dom4j</artifactId>
+		        </exclusion>
+    			<exclusion>
     				<artifactId>jta</artifactId>
     				<groupId>jta</groupId>
     			</exclusion>
