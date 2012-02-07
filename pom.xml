@@ -72,6 +72,12 @@
             <artifactId>jira-core</artifactId>
             <version>${jira.version}</version>
             <scope>provided</scope>
+            <exclusions>
+		        <exclusion>
+		          	<groupId>dom4j</groupId>
+      				<artifactId>dom4j</artifactId>
+		        </exclusion>
+		    </exclusions>
         </dependency>
         <dependency>
 		  	<groupId>javax.xml.bind</groupId> 
