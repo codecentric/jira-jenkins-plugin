@@ -73,7 +73,7 @@ public class ChartServlet extends HttpServlet {
 
 		String urlJenkinsServer = req.getParameter("jenkinsUrl");
 		String jenkinsJob = req.getParameter("job");
-		String trendPropKey = "portlet.chart.trend." + req.getParameter("trend");
+		String trendPropKey = "gadget.chart.trend." + req.getParameter("trend");
 		String type = "";
 		int hight = Integer.parseInt(req.getParameter("hight"));
 		int width = Integer.parseInt(req.getParameter("width"));

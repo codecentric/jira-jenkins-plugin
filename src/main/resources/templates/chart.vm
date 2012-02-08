@@ -20,12 +20,12 @@
  	</table>
     <tr>
         <td>
-            <table id="portlet_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
+            <table id="gadget_$portletConfig.id" border="0" cellpadding="3" cellspacing="1" width="100%">
 
             	
                 <tr class=rowHeader>
                     <td class="colHeaderLink">
-                        $title: <b>$job</b> ($i18n.getText("portlet.chart.property.jenkinsurl.name"): $jenkinsUrl)</b>
+                        $title: <b>$job</b> ($i18n.getText("gadget.chart.property.jenkinsurl.name"): $jenkinsUrl)</b>
                         <input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
                     </td>
                 </tr>

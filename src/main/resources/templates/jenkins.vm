@@ -21,31 +21,31 @@
             <table border="0" cellpadding="3" cellspacing="1" width="100%">
                 <tr class=rowHeader>
                     <td class="colHeaderLink" colspan=60>
-                        $i18n.getText("portlet.overview.title"):
+                        $i18n.getText("gadget.overview.title"):
   						#if($view!="")
-	                    	$i18n.getText("portlet.overview.property.view.name") <b>$view</b>
+	                    	$i18n.getText("gadget.overview.property.view.name") <b>$view</b>
 	                   	#else
-	                   		<b>$i18n.getText("portlet.overview.complete")</b>
+	                   		<b>$i18n.getText("gadget.overview.complete")</b>
 	                    #end                        
-                         ($i18n.getText("portlet.overview.property.jenkinsurl.name"): $jenkinsUrl) User: $user
+                         ($i18n.getText("gadget.overview.property.jenkinsurl.name"): $jenkinsUrl) User: $user
                          <input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
                     </td>
                 </tr>
                 <tr class=rowNormal>
                     <td>
-                        <b>$i18n.getText("portlet.overview.status")</b>
+                        <b>$i18n.getText("gadget.overview.status")</b>
                     </td>
                     <td>
-                        <b>$i18n.getText("portlet.overview.job")</b>
+                        <b>$i18n.getText("gadget.overview.job")</b>
                     </td>
                     <td>
-                        <b>$i18n.getText("portlet.overview.lastSuccess")</b>
+                        <b>$i18n.getText("gadget.overview.lastSuccess")</b>
                     </td>
                     <td>
-                        <b>$i18n.getText("portlet.overview.failure")</b>
+                        <b>$i18n.getText("gadget.overview.failure")</b>
                     </td>
                     <td>
-                        <b>$i18n.getText("portlet.overview.startBuild")</b>
+                        <b>$i18n.getText("gadget.overview.startBuild")</b>
                     </td>
                 </tr>
                 #foreach($hJob in $jobs)

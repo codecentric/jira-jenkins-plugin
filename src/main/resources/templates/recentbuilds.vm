@@ -21,24 +21,24 @@
             <table border="0" cellpadding="3" cellspacing="1" width="100%">
                 <tr class=rowHeader>
                     <td class="colHeaderLink" colspan=50>
-                    	$i18n.getText("portlet.recentbuilds.title"):
+                    	$i18n.getText("gadget.recentbuilds.title"):
                         #if($job!="")
-                        	$i18n.getText("portlet.recentbuilds.property.job.name") <b>$job</b>
+                        	$i18n.getText("gadget.recentbuilds.property.job.name") <b>$job</b>
 						#else
 	                        #if($view!="")
-	                        	$i18n.getText("portlet.recentbuilds.property.view.name") <b>$view</b>
+	                        	$i18n.getText("gadget.recentbuilds.property.view.name") <b>$view</b>
 	                        #else
-	                        	<b>$i18n.getText("portlet.recentbuilds.complete")</b>
+	                        	<b>$i18n.getText("gadget.recentbuilds.complete")</b>
 	                        #end
                         #end
-                    	($i18n.getText("portlet.recentbuilds.property.jenkinsurl.name"): ${jenkinsUrl}) User: $user
+                    	($i18n.getText("gadget.recentbuilds.property.jenkinsurl.name"): ${jenkinsUrl}) User: $user
                     	<input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
                     </td>
                 </tr>
                 <tr class=rowNormal>
-                    <td><b>$i18n.getText("portlet.recentbuilds.status")</b></td>
-                    <td><b>$i18n.getText("portlet.recentbuilds.description")</b></td>
-                    <td><b>$i18n.getText("portlet.recentbuilds.time")</b></td>
+                    <td><b>$i18n.getText("gadget.recentbuilds.status")</b></td>
+                    <td><b>$i18n.getText("gadget.recentbuilds.description")</b></td>
+                    <td><b>$i18n.getText("gadget.recentbuilds.time")</b></td>
                 </tr>
                 #foreach($hBuild in $builds)
                     <tr class=rowNormal>
