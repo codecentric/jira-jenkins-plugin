@@ -300,13 +300,10 @@ public class OverviewServlet extends HttpServlet {
 					+ "/buildTimestamp?format=" + DATE_FORMAT);
 			build.setTimestamp(SIMPLE_DATE_FORMAT.parse(IOUtils.toString((InputStream) urlTimestamp.getContent())));
 		} catch (MalformedURLException e) {
-			System.out.println("test1");
 			return JenkinsBuild.UNKNOWN;
 		} catch (IOException e) {
-			System.out.println("test2");
 			return JenkinsBuild.UNKNOWN;
 		} catch (ParseException e) {
-			System.out.println("test3");
 			return JenkinsBuild.UNKNOWN;
 		}
 
