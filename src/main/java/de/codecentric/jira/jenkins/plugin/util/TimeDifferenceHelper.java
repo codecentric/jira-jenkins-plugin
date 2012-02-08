@@ -93,14 +93,14 @@ public class TimeDifferenceHelper {
 			String days = formatPeriod1(timeDiff, DAY, "Day");
 			return monthsString + (!StringUtils.isEmpty(days) ? " " + days : "");
 		} else {
-			// show years and months
+			// show year and months
 			if (DateUtils.addYears(timestamp, 2).after(new Date(endMillis))) {
 				// not more than two years, use singular
 				startMillis = DateUtils.addYears(timestamp, 1).getTime();
 				String monthsString = formatMonths(startMillis, endMillis);
 				return "1 " + getPlural(1, "Year") + (!StringUtils.isEmpty(monthsString) ? " " + monthsString : "");
 			}
-			// show months and day(s)
+			// show years and months
 			String yearString = formatYears(startMillis, endMillis);
 			String monthsString = formatMonths(startMillis, endMillis);
 			return yearString + (!StringUtils.isEmpty(monthsString) ? " " + monthsString : "");
@@ -117,7 +117,17 @@ public class TimeDifferenceHelper {
 		start.setTimeInMillis(startMillis);
 		Calendar end = Calendar.getInstance();
 		end.setTimeInMillis(endMillis);
-		return end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+		int month;
+		if(start.get(Calendar.DAY_OF_MONTH)>end.get(Calendar.DAY_OF_MONTH)){
+			month = end.get(Calendar.MONTH) - start.get(Calendar.MONTH) - 1;
+		}else{
+			month = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+		}
+		if(month < 0){
+			return month + 12;
+		}else{
+			return month;
+		}
 	}
 
 	private String formatYears(long startMillis, long endMillis) {
@@ -130,7 +140,12 @@ public class TimeDifferenceHelper {
 		start.setTimeInMillis(startMillis);
 		Calendar end = Calendar.getInstance();
 		end.setTimeInMillis(endMillis);
-		int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+		int years; 
+		if(start.get(Calendar.MONTH)>end.get(Calendar.MONTH)){
+			years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR) - 1;
+		}else{
+			years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+		}
 		return years;
 	}
 
