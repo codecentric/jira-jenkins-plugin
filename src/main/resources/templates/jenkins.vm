@@ -28,7 +28,7 @@
 	                   		<b>$i18n.getText("gadget.overview.complete")</b>
 	                    #end                        
                          ($i18n.getText("gadget.overview.property.jenkinsurl.name"): $jenkinsUrl) User: $user
-                         <input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
+                         <input type="button" name="display_button" value=$i18n.getText("admin.button.show") onclick="display()"/>
                     </td>
                 </tr>
                 <tr class=rowNormal>

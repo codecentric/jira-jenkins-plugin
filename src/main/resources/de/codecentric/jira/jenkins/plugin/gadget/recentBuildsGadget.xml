@@ -52,7 +52,7 @@
 							  document.write(obj.text);
 							  gadgets.window.adjustHeight();
 							};
-							
+		
 							makeDOMRequest();
             </script>
         ]]>

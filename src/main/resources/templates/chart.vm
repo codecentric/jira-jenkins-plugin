@@ -26,7 +26,7 @@
                 <tr class=rowHeader>
                     <td class="colHeaderLink">
                         $title: <b>$job</b> ($i18n.getText("gadget.chart.property.jenkinsurl.name"): $jenkinsUrl)</b>
-                        <input type="button" name="display_button" value="show/hide instances" onclick="display()"/>
+                        <input type="button" name="display_button" value=$i18n.getText("admin.button.show") onclick="display()"/>
                     </td>
                 </tr>
                 <tr tr class=rowNormal>
