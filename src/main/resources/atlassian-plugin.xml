@@ -115,6 +115,7 @@
 	<resource type="download" namePattern="pics.24x24/" location="pics/24x24/"/>
 	<resource type="download" namePattern="pics.32x32/" location="pics/32x32/"/>
 	<resource type="download" namePattern="pics.48x48/" location="pics/48x48/"/>
+	<resource type="download" name="pics/wait.gif" location="pics/wait.gif"/>
 	<resource type="download" namePattern="thumbnails/" location="thumbnails/"/>
 	
 </atlassian-plugin>

@@ -25,6 +25,18 @@
     <UserPref name="password" default_value=""/>
     <Content type="html" view="profile">
     	<![CDATA[
+    		<div id="portletcc-${portletId}">
+			<table class="tableBorder maxWidth" border="0" cellpadding="0" cellspacing="0" width="100%" >
+			    <tr><td>
+			            <table border="0" cellpadding="0" cellspacing="1" width="100%" style="text-align: center; height:50px;" >
+			                <tr class="rowNormal">
+			                    <td><p><img src="__ATLASSIAN_BASE_URL__/download/resources/jira-jenkins-plugin.jira-jenkins-plugin/pics/wait.gif" /></p></td>
+			                </tr>
+				        </table>
+			    </td></tr>
+			</table>
+			</div>
+    	
     	    <script type="text/javascript" charset="utf-8">
 				function makeDOMRequest() {
 							  var params = {};
