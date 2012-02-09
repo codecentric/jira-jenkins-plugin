@@ -50,7 +50,7 @@
                 </tr>
                 #foreach($hJob in $jobs)
                     <tr class=rowNormal>
-                        <td>
+                        <td height=40>
                             <img src="$context.contextPath/download/resources/jira-jenkins-plugin.jira-jenkins-plugin/pics.32x32/${hJob.getColor()}.gif" alt=""/>
                         </td>
 	                     <td>
