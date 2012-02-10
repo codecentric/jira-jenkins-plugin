@@ -58,6 +58,7 @@
 	<web-item key="jenkins_web_item" section="top_plugins_section/jenkins_menu_item">
 		<label key="admin.section.description"/>
 		<link>/plugins/servlet/jenkinsinstances</link>
+		<tooltip key="admin.section.tooltip"/>
 	</web-item>
 	
 	<ao key="ao-module">
