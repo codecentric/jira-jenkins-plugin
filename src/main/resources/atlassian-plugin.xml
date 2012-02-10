@@ -50,15 +50,13 @@
     <resource type="download" name="i18n/ALL_ALL.xml" location="i18n/ALL_ALL.xml">
         <param name="content-type" value="text/xml; charset=UTF-8"/>
     </resource>
-	    
-	<web-section key="jenkins_web_section" location="admin_plugins_menu">
-		<label key="Jenkins"/>
-	</web-section>
 	
-	<web-section key="jenkins_menu_item" location="jenkins_web_section"/>
+	<web-section key="jenkins_menu_item" location="top_plugins_section">
+		<label key="admin.section.description"/>
+	</web-section>
 
-	<web-item key="jenkins_web_item" section="jenkins_web_section/jenkins_menu_item">
-		<label key="Jenkins-Instanzen verwalten"/>
+	<web-item key="jenkins_web_item" section="top_plugins_section/jenkins_menu_item">
+		<label key="admin.section.description"/>
 		<link>/plugins/servlet/jenkinsinstances</link>
 	</web-item>
 	
