@@ -9,7 +9,7 @@
 		<tr>
 		<td>
 			<p>$i18n.getText("admin.description") <br>
-			$i18n.getText("admin.description2")</p>
+			$i18n.getText("admin.description2")<br><br></p>
     	</td>
     </tr>
     <tr>
@@ -30,6 +30,9 @@
                         </td>
                     </tr>
                 #end
+                <tr>
+                	<td></td>
+                </tr>
             </table>
         </td>
     </tr>
