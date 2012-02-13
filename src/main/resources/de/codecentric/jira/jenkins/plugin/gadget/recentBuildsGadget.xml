@@ -62,9 +62,10 @@
 							};
 					    	function response(obj) {
 							  document.write(obj.text);
+							  document.close();
 							  gadgets.window.adjustHeight();
 							  //in case pics for example have not loaded yet
-							  setTimeout("gadgets.window.adjustHeight()", 5000);
+							  setTimeout("gadgets.window.adjustHeight()", 2000);
 							};
 		
 							makeDOMRequest();

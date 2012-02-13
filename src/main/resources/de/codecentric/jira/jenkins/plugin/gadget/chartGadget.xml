@@ -85,6 +85,7 @@
 				
 				function response(obj) {
 				  document.write(obj.text);
+				  document.close();
 				  gadgets.window.adjustHeight();
 				};
 				
