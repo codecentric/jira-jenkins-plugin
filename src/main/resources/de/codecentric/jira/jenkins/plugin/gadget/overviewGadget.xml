@@ -58,6 +58,8 @@
 				function response(obj) {
 				  document.write(obj.text);
 				  gadgets.window.adjustHeight();
+				  //in case pics for example have not loaded yet
+				  setTimeout("gadgets.window.adjustHeight()", 5000);
 				};
 				
 				makeDOMRequest();
