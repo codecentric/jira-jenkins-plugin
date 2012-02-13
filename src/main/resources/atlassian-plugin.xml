@@ -78,7 +78,7 @@
     	<description key="gadget.overview.description"/>
 	</gadget>
 	    
-	<servlet name="gadget.overview.name" i18n-name-key="overview.name"
+	<servlet name="Jenkins Job Overview Servlet" i18n-name-key="gadget.overview.name"
 	         key="overview"
 	         class="de.codecentric.jira.jenkins.plugin.servlet.OverviewServlet">
 	    <description key="gadget.overview.description"/>
@@ -90,7 +90,7 @@
     	<description key="gadget.buildlist.description"/>
 	</gadget>
 	
-	<servlet name="gadget.buildlist.name" i18n-name-key="recentbuilds.name"
+	<servlet name="Recent Jenkins Builds Servlet" i18n-name-key="gadget.buildlist.name"
 	         key="recentbuilds"
 	         class="de.codecentric.jira.jenkins.plugin.servlet.RecentBuildsServlet">
 	    <description key="gadget.buildlist.description"/>
@@ -102,7 +102,7 @@
     	<description key="gadget.chart.description"/>
 	</gadget>
 	
-	<servlet name="gadget.chart.name" i18n-name-key="chart.name"
+	<servlet name="Chart Servlet" i18n-name-key="gadget.chart.name"
 	         key="chart"
 	         class="de.codecentric.jira.jenkins.plugin.servlet.ChartServlet">
 	    <description key="gadget.chart.description"/>
