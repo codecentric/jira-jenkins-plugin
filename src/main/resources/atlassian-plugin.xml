@@ -1,8 +1,7 @@
 <atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
     <plugin-info>
         <description>Allows you to integrate Jenkins status about projects and builds into the JIRA Dashboard.</description>
-        <version>2.0</version>
-        <application-version min="4.4" max="4.4"/>
+        <version>${project.version}</version>
         <vendor name="${project.organization.name}" url="${project.organization.url}"/>
         <bundle-instructions>
           <Import-Package>com.atlassian.templaterenderer,*;resolution:=optional</Import-Package>

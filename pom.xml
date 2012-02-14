@@ -96,13 +96,13 @@
 	    <dependency>
 		  <groupId>com.atlassian.activeobjects</groupId>
 		  <artifactId>activeobjects-test</artifactId>
-		  <version>0.15</version>
+		  <version>${ao.version}</version>
 		  <scope>test</scope>
 		</dependency>
 	    <dependency>
 		  <groupId>com.atlassian.activeobjects</groupId>
 		  <artifactId>activeobjects-plugin</artifactId>
-		  <version>0.15</version>
+		  <version>${ao.version}</version>
 		  <scope>provided</scope>
 		</dependency> 
 		<dependency>
@@ -145,27 +145,7 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-            <plugin>
-			  <groupId>com.atlassian.maven.plugins</groupId>
-			  <artifactId>maven-refapp-plugin</artifactId>
-			  <version>3.7.2</version>
-			  <extensions>true</extensions>
-			  <configuration>
-			    <pluginArtifacts>
-			      <pluginArtifact>
-			        <groupId>com.atlassian.activeobjects</groupId>
-			        <artifactId>activeobjects-plugin</artifactId>
-			        <version>0.15</version>
-			      </pluginArtifact>
-			      <pluginArtifact>
-			        <groupId>com.atlassian.activeobjects</groupId>
-			        <artifactId>activeobjects-refapp-spi</artifactId>
-			        <version>0.15</version>
-			      </pluginArtifact>
-			    </pluginArtifacts>
-			    <productVersion>2.9</productVersion>
-			  </configuration>
-			</plugin>
+            
         </plugins>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -180,9 +160,7 @@
         <!-- TODO: Update to 5.0 after release of 5.0 final -->
         <jira.version>4.4</jira.version>
         <!--<amps.version>3.7.2</amps.version>-->
-        <atlassian.plugin.application.version.min>5.0</atlassian.plugin.application.version.min>
-        <atlassian.product.version>4.4</atlassian.product.version>
-        <atlassian.product.data.version>4.4</atlassian.product.data.version>
+        <ao.version>0.15</ao.version>
 		<jdkLevel>1.6</jdkLevel>
     </properties>
 
