@@ -49,6 +49,9 @@
     <resource type="download" name="i18n/ALL_ALL.xml" location="i18n/ALL_ALL.xml">
         <param name="content-type" value="text/xml; charset=UTF-8"/>
     </resource>
+    <resource type="download" name="i18n/de_ALL.xml" location="i18n/de_ALL.xml">
+        <param name="content-type" value="text/xml; charset=UTF-8"/>
+    </resource>
 	
 	<web-section key="jenkins_menu_item" location="top_plugins_section">
 		<label key="admin.section.description"/>

@@ -15,6 +15,7 @@
     	<Optional feature="auth-refresh"/> 
     	<Require feature="views" />
         <Locale messages="__ATLASSIAN_BASE_URL__/download/resources/jira-jenkins-plugin.jira-jenkins-plugin/i18n/ALL_ALL.xml"/>
+        <Locale lang="de" messages="__ATLASSIAN_BASE_URL__/download/resources/jira-jenkins-plugin.jira-jenkins-plugin/i18n/de_ALL.xml"/>
     </ModulePrefs>
     <UserPref name="isConfigured" datatype="hidden" default_value="false"/>
     <UserPref name="jenkinsUrl" display_name="Jenkinsname oder Url" default_value="http://localhost:8080/" required="true"/>
