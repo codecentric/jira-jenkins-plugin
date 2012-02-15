@@ -15,7 +15,6 @@ package de.codecentric.jira.jenkins.plugin.servlet;
  * the License.
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static de.codecentric.jira.jenkins.plugin.util.URLEncoder.encodeForURL;
 
 import java.io.IOException;
@@ -32,11 +31,12 @@ import org.apache.commons.lang.StringUtils;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.atlassian.crowd.embedded.api.User;
+import com.opensymphony.user.User;
 
-import de.codecentric.jira.jenkins.plugin.ao.Server;
-import de.codecentric.jira.jenkins.plugin.ao.ServerService;
+import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
+import de.codecentric.jira.jenkins.plugin.util.ServerList;
 
 /**
  *	This class is used to show a graphic from the Jenkins Server.
@@ -47,12 +47,13 @@ public class ChartServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/chart.vm";
     private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
-    private final ServerService serverService; 
+    
+    private ServerList serverList;
  
-    public ChartServlet(TemplateRenderer templateRenderer, ServerService serverService, JiraAuthenticationContext authenticationContext) {
+    public ChartServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
         this.templateRenderer = templateRenderer;
         this.authenticationContext = authenticationContext;
-        this.serverService = checkNotNull(serverService);
+        this.serverList = new ServerList(settingsFactory);
     }
     
     /**
@@ -68,7 +69,7 @@ public class ChartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
     	Map<String, Object> velocityValues = new HashMap<String, Object>();
     	
-    	User user = authenticationContext.getLoggedInUser();
+    	User user = authenticationContext.getUser();
 		I18nHelper i18nHelper = new I18nBean(user);
 
 		String urlJenkinsServer = req.getParameter("jenkinsUrl");
@@ -83,7 +84,8 @@ public class ChartServlet extends HttpServlet {
 		String trendTitle = i18nHelper.getText(trendPropKey + ".description");
 		
 		//check if urlJenkinsServer equals Server.name
-		Server server = serverService.find(urlJenkinsServer);
+		serverList.setServerList();
+		JenkinsServer server = serverList.find(urlJenkinsServer);
 		if(server!=null){
 			urlJenkinsServer = server.getUrl();
 		}
@@ -98,7 +100,7 @@ public class ChartServlet extends HttpServlet {
 			urlJenkinsServer += "?" + type;
 		}
 
-		velocityValues.put("serverList", serverService.all());
+		velocityValues.put("serverList", serverList.getServerList());
 		velocityValues.put("jenkinsUrl", urlJenkinsServer);
 		velocityValues.put("job", jenkinsJob);
 		velocityValues.put("trendUrl", trendUrl);

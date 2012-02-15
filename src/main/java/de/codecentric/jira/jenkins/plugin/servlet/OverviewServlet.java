@@ -15,7 +15,6 @@ package de.codecentric.jira.jenkins.plugin.servlet;
  * the License.
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,17 +42,18 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.atlassian.crowd.embedded.api.User;
+import com.opensymphony.user.User;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
-import de.codecentric.jira.jenkins.plugin.ao.Server;
-import de.codecentric.jira.jenkins.plugin.ao.ServerService;
 import de.codecentric.jira.jenkins.plugin.model.BuildType;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsJob;
+import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
+import de.codecentric.jira.jenkins.plugin.util.ServerList;
 import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
 
 /**
@@ -71,15 +71,15 @@ public class OverviewServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/jenkins.vm";
     private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
-    private final ServerService serverService;
     
+    private ServerList serverList;
     private HttpClient client;
     private Credentials defaultcreds;
     
-    public OverviewServlet(TemplateRenderer templateRenderer, ServerService serverService, JiraAuthenticationContext authenticationContext) {
+    public OverviewServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
         this.templateRenderer = templateRenderer;
-        this.serverService = checkNotNull(serverService);
         this.authenticationContext = authenticationContext;
+        this.serverList = new ServerList(settingsFactory);
         this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
   	  
     	client.getParams().setAuthenticationPreemptive(true);
@@ -106,11 +106,12 @@ public class OverviewServlet extends HttpServlet {
 			String userName = req.getParameter("userName");
 			String password = req.getParameter("password");
 
-			User user = authenticationContext.getLoggedInUser();
+			User user = authenticationContext.getUser();
 			I18nHelper i18nHelper = new I18nBean(user);
 			
 			//check if urlJenkinsServer equals Server.name
-			Server server = serverService.find(urlJenkinsServer);
+			serverList.setServerList();
+			JenkinsServer server = serverList.find(urlJenkinsServer);
 			if(server!=null){
 				urlJenkinsServer = server.getUrl();
 			}
@@ -134,7 +135,7 @@ public class OverviewServlet extends HttpServlet {
 				velocityValues.put("user", userName);
 			}
 			
-			velocityValues.put("serverList", serverService.all());
+			velocityValues.put("serverList", serverList.getServerList());
 			velocityValues.put("jenkinsUrl", urlJenkinsServer);
 			velocityValues.put("view", view);
 			velocityValues.put("jobs", portletData);

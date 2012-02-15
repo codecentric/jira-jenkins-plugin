@@ -15,7 +15,6 @@ package de.codecentric.jira.jenkins.plugin.servlet;
  * the License.
  */
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -48,13 +47,14 @@ import org.dom4j.io.SAXReader;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import com.atlassian.crowd.embedded.api.User;
+import com.opensymphony.user.User;
 
-import de.codecentric.jira.jenkins.plugin.ao.Server;
-import de.codecentric.jira.jenkins.plugin.ao.ServerService;
 import de.codecentric.jira.jenkins.plugin.model.BuildResult;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
+import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
+import de.codecentric.jira.jenkins.plugin.util.ServerList;
 import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
 
 /**
@@ -70,16 +70,16 @@ public class RecentBuildsServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/recentbuilds.vm";
 	private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
-    private final ServerService serverService;
- 
+    
+    private ServerList serverList;
     private HttpClient client;
     private Credentials defaultcreds;
     
-    public RecentBuildsServlet(TemplateRenderer templateRenderer, ServerService serverService, JiraAuthenticationContext authenticationContext) {
+    public RecentBuildsServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
         this.templateRenderer = templateRenderer;
-        this.serverService = checkNotNull(serverService);
         this.authenticationContext = authenticationContext;
         this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
+        this.serverList = new ServerList(settingsFactory);
     	  
     	client.getParams().setAuthenticationPreemptive(true);
     }
@@ -98,7 +98,7 @@ public class RecentBuildsServlet extends HttpServlet {
     	Map<String, Object> velocityValues = new HashMap<String, Object>();
 		List<JenkinsBuild> builds = new ArrayList<JenkinsBuild>();
 
-		User user = authenticationContext.getLoggedInUser();
+		User user = authenticationContext.getUser();
 		I18nHelper i18nHelper = new I18nBean(user);
 
 		try {
@@ -108,13 +108,14 @@ public class RecentBuildsServlet extends HttpServlet {
 			int maxBuilds = Integer.parseInt(req.getParameter("maxBuilds"));
 			String userName = req.getParameter("userName");
 			String password = req.getParameter("password");
-			
+
 			//check if urlJenkinsServer equals Server.name
-			Server server = serverService.find(urlJenkinsServer);
+			serverList.setServerList();
+			JenkinsServer server = serverList.find(urlJenkinsServer);
 			if(server!=null){
 				urlJenkinsServer = server.getUrl();
 			}
-
+			
 			if (urlJenkinsServer.lastIndexOf('/') < urlJenkinsServer.length()-1) {
 				urlJenkinsServer += "/";
 			}
@@ -136,7 +137,7 @@ public class RecentBuildsServlet extends HttpServlet {
 	    	
 			builds = readBuilds(buildRss, maxBuilds, i18nHelper);
 			
-			velocityValues.put("serverList", serverService.all());
+			velocityValues.put("serverList", serverList.getServerList());
 			velocityValues.put("view", view);
 			velocityValues.put("job", job);
 			velocityValues.put("jenkinsUrl", urlJenkinsServer);
