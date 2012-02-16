@@ -3,13 +3,13 @@
 <table class=tableBorder border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr class=rowHeader>
 			<td class="colHeaderLink" colspan=60>
-				<h1> $i18n.getText("admin.name") </h1>
+				<h1> $i18n.getText("servlet.name") </h1>
 			</td>
 		</tr>
 		<tr>
 		<td>
-			<p>$i18n.getText("admin.description") <br>
-			$i18n.getText("admin.description2")<br><br></p>
+			<p>$i18n.getText("servlet.description") <br>
+			$i18n.getText("servlet.description2")<br><br></p>
     	</td>
     </tr>
     <tr>
@@ -17,7 +17,7 @@
             <table border="0" cellpadding="3" cellspacing="1" width="75%">
                 <tr>
                 	<td>
-                		<h3> $i18n.getText("admin.table.header") </h3>
+                		<h3> $i18n.getText("servlet.table.header") </h3>
                 	</td>
                 </tr>
                 #foreach($server in $serverList)
@@ -47,7 +47,7 @@
       					<td><input name="url" id="url" type="text" size="50" maxlength="100"></td>
 	               		<td>
 	               			<input type="hidden" name="mode" id="mode" value="add">
-	               			<input type="button" name="add" value="$i18n.getText("admin.table.button.add")" onclick="javascript:document.addForm.submit()">
+	               			<input type="button" name="add" value="$i18n.getText("servlet.table.button.add")" onclick="javascript:document.addForm.submit()">
 	                   	</td>
 	            	</form>
 	            </tr>
@@ -59,7 +59,7 @@
       					<td></td>
 	               		<td>
 	               			<input type="hidden" name="mode" value="del">
-	               			<input type="button" name="delete" value="$i18n.getText("admin.table.button.del")" onclick="javascript:document.delForm.submit()">
+	               			<input type="button" name="delete" value="$i18n.getText("servlet.table.button.del")" onclick="javascript:document.delForm.submit()">
 	                   	</td>
 	            	</form>
 	            </tr>

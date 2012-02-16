@@ -32,7 +32,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import de.codecentric.jira.jenkins.plugin.ao.ServerService;
 
 public class JenkinsInstancesServlet extends HttpServlet {
-    private static final String TEMPLATE_PATH = "/templates/admin.vm";
+    private static final String TEMPLATE_PATH = "/templates/config.vm";
     private final TemplateRenderer templateRenderer;
     private final UserManager userManager;
     private final ServerService serverService;

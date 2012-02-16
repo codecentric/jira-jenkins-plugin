@@ -22,12 +22,12 @@
 	</component>
 	<component key="server-service" name="Server Service" class="de.codecentric.jira.jenkins.plugin.ao.ServerServiceImpl"/>
     
-    <resource type="i18n" name="admin"
-              location="de.codecentric.jira.jenkins.plugin.properties/admin"/>
-	<resource type="i18n" name="admin_en"
-              location="de.codecentric.jira.jenkins.plugin.properties/admin_en"/>
-	<resource type="i18n" name="admin_de"
-              location="de.codecentric.jira.jenkins.plugin.properties/admin_de"/>
+    <resource type="i18n" name="config"
+              location="de.codecentric.jira.jenkins.plugin.properties/config"/>
+	<resource type="i18n" name="config_en"
+              location="de.codecentric.jira.jenkins.plugin.properties/config_en"/>
+	<resource type="i18n" name="config_de"
+              location="de.codecentric.jira.jenkins.plugin.properties/config_de"/>
 	<resource type="i18n" name="overview"
               location="de.codecentric.jira.jenkins.plugin.properties/overview"/>
     <resource type="i18n" name="overview_en"
@@ -54,13 +54,13 @@
     </resource>
 	
 	<web-section key="jenkins_menu_item" location="top_plugins_section">
-		<label key="admin.section.description"/>
+		<label key="servlet.section.description"/>
 	</web-section>
 
 	<web-item key="jenkins_web_item" section="top_plugins_section/jenkins_menu_item">
-		<label key="admin.section.description"/>
+		<label key="servlet.section.description"/>
 		<link>/plugins/servlet/jenkinsinstances</link>
-		<tooltip key="admin.section.tooltip"/>
+		<tooltip key="servlet.section.tooltip"/>
 	</web-item>
 	
 	<ao key="ao-module">
@@ -68,12 +68,12 @@
 	  <entity>de.codecentric.jira.jenkins.plugin.ao.Server</entity>
 	</ao>
 	
-	<servlet name="JenkinsInstancesServlet" i18n-name-key="admin.name"
+	<servlet name="JenkinsInstancesServlet" i18n-name-key="servlet.name"
 	         key="jenkinsinstances"
 	         class="de.codecentric.jira.jenkins.plugin.servlet.JenkinsInstancesServlet">
-	    <description key="admin.servlet.description"/>
+	    <description key="servlet.servlet.description"/>
 	    <url-pattern>/jenkinsinstances</url-pattern>
-	    <label key="admin.name" />
+	    <label key="servlet.name" />
 	</servlet>
 	
 	<gadget key="overviewGadget" name="Jenkins Job Overview Gadget" location="de/codecentric/jira/jenkins/plugin/gadget/overviewGadget.xml">
