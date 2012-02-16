@@ -24,8 +24,7 @@ JenkinsInstancesServlet:
 Jira-Version
 ------------
 
-Requires Jira 4.x
-Does not work with Jira 5.0
+Works with Jira 4.x and Jira 5.0
 
 Licensing
 ---------

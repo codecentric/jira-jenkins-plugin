@@ -29,7 +29,15 @@ public class IsPriorToJiraVersion implements Condition {
         maxMajorVersion = Integer.decode(paramMap.get("majorVersion"));
         maxMinorVersion = Integer.decode(paramMap.get("minorVersion"));
     }
+    
+    public void setmaxMajorVersion(int majorVersion){
+    	maxMajorVersion = majorVersion;
+    }
  
+    public void setmaxMinorVersion(int minorVersion){
+    	maxMinorVersion = minorVersion;
+    }
+    
     public boolean shouldDisplay(final Map<String, Object> context) {
         return (majorVersion < maxMajorVersion) || (majorVersion == maxMajorVersion) && (minorVersion < maxMinorVersion);
     }

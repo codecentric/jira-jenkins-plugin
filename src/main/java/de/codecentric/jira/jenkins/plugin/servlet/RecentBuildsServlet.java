@@ -47,14 +47,18 @@ import org.dom4j.io.SAXReader;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.sal.api.ApplicationProperties;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.opensymphony.user.User;
 
+import de.codecentric.jira.jenkins.plugin.conditions.IsPriorToJiraVersion;
 import de.codecentric.jira.jenkins.plugin.model.BuildResult;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
 import de.codecentric.jira.jenkins.plugin.model.ServerList;
+import de.codecentric.jira.jenkins.plugin.util.NewUser;
+import de.codecentric.jira.jenkins.plugin.util.OldUser;
 import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
 
 /**
@@ -70,17 +74,24 @@ public class RecentBuildsServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/recentbuilds.vm";
 	private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
+    private final boolean old;
     
     private ServerList serverList;
     private HttpClient client;
     private Credentials defaultcreds;
     
-    public RecentBuildsServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
+    public RecentBuildsServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory, ApplicationProperties applicationProperties) {
         this.templateRenderer = templateRenderer;
         this.authenticationContext = authenticationContext;
         this.client = new HttpClient(new MultiThreadedHttpConnectionManager());
         this.serverList = new ServerList(settingsFactory);
     	  
+        //test if jiraversion < 4.3
+        IsPriorToJiraVersion isPrior = new IsPriorToJiraVersion(applicationProperties);
+        isPrior.setmaxMajorVersion(4);
+        isPrior.setmaxMinorVersion(3);
+        this.old = isPrior.shouldDisplay(null);
+        
     	client.getParams().setAuthenticationPreemptive(true);
     }
     
@@ -98,8 +109,12 @@ public class RecentBuildsServlet extends HttpServlet {
     	Map<String, Object> velocityValues = new HashMap<String, Object>();
 		List<JenkinsBuild> builds = new ArrayList<JenkinsBuild>();
 
-		User user = authenticationContext.getUser();
-		I18nHelper i18nHelper = new I18nBean(user);
+		I18nHelper i18nHelper;
+    	if(old){
+    		i18nHelper = OldUser.getI18nHelper(authenticationContext);
+    	}else{
+    		i18nHelper = NewUser.getI18nHelper(authenticationContext);
+    	}
 
 		try {
 			String urlJenkinsServer = req.getParameter("jenkinsUrl");

@@ -26,23 +26,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.atlassian.jira.security.JiraAuthenticationContext;
+import com.atlassian.sal.api.ApplicationProperties;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
-import com.opensymphony.user.UserManager;
+import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
+import de.codecentric.jira.jenkins.plugin.conditions.IsPriorToJiraVersion;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
 import de.codecentric.jira.jenkins.plugin.model.ServerList;
+import de.codecentric.jira.jenkins.plugin.util.NewUser;
+import de.codecentric.jira.jenkins.plugin.util.OldUser;
 
 public class JenkinsInstancesServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/config.vm";
     private final JiraAuthenticationContext authenticationContext;
     private final TemplateRenderer templateRenderer;
     private final ServerList server;
+    private final UserManager userManager;
+    private final boolean old;
 	
-	public JenkinsInstancesServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
+	public JenkinsInstancesServlet(TemplateRenderer templateRenderer, UserManager userManager, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory, ApplicationProperties applicationProperties) {
         this.templateRenderer = templateRenderer;  
         this.authenticationContext = authenticationContext;
         this.server = new ServerList(settingsFactory);
+        this.userManager = userManager;
+        
+        //test if jiraversion < 4.3
+        IsPriorToJiraVersion isPrior = new IsPriorToJiraVersion(applicationProperties);
+        isPrior.setmaxMajorVersion(4);
+        isPrior.setmaxMinorVersion(3);
+        this.old = isPrior.shouldDisplay(null);
     }
 	
 	/**
@@ -50,13 +63,19 @@ public class JenkinsInstancesServlet extends HttpServlet {
      * Requires name and url for Server.
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String username = authenticationContext.getUser().getFullName();
-    	//check if user is system-administrator administrator
-        if (username != null && (!authenticationContext.getUser().inGroup("jira-administrators")))
-        {
-        	response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+    	if(old){
+    		if (OldUser.checkAdminOld(authenticationContext))
+            {
+            	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return;
+            }
+    	}else{
+    		if (NewUser.checkAdminNew(userManager, request))
+            {
+            	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return;
+            }
+    	}
     	String name = request.getParameter("name");
     	String url = request.getParameter("url");
     	String mode = request.getParameter("mode");
@@ -77,13 +96,20 @@ public class JenkinsInstancesServlet extends HttpServlet {
      * This function renders the template
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-    	String username = authenticationContext.getUser().getFullName();
-    	//check if user is system-administrator administrator
-        if (username != null && (!authenticationContext.getUser().inGroup("jira-administrators")))
-        {
-        	resp.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+    	if(old){
+    		if (OldUser.checkAdminOld(authenticationContext))
+            {
+            	resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return;
+            }
+    	}else{
+    		if (NewUser.checkAdminNew(userManager, req))
+            {
+            	resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return;
+            }
+    	}
+    	
     	Map<String, Object> velocityValues = new HashMap<String, Object>();
     	
     	List<JenkinsServer> serverList = server.getServerList();

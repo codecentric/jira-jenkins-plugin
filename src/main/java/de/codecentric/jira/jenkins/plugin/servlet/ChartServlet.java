@@ -31,12 +31,16 @@ import org.apache.commons.lang.StringUtils;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
+import com.atlassian.sal.api.ApplicationProperties;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.opensymphony.user.User;
 
+import de.codecentric.jira.jenkins.plugin.conditions.IsPriorToJiraVersion;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
 import de.codecentric.jira.jenkins.plugin.model.ServerList;
+import de.codecentric.jira.jenkins.plugin.util.NewUser;
+import de.codecentric.jira.jenkins.plugin.util.OldUser;
 
 /**
  *	This class is used to show a graphic from the Jenkins Server.
@@ -47,13 +51,20 @@ public class ChartServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "/templates/chart.vm";
     private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
+    private final boolean old;
     
     private ServerList serverList;
  
-    public ChartServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory) {
+    public ChartServlet(TemplateRenderer templateRenderer, JiraAuthenticationContext authenticationContext, PluginSettingsFactory settingsFactory, ApplicationProperties applicationProperties) {
         this.templateRenderer = templateRenderer;
         this.authenticationContext = authenticationContext;
         this.serverList = new ServerList(settingsFactory);
+        
+        //test if jiraversion < 4.3
+        IsPriorToJiraVersion isPrior = new IsPriorToJiraVersion(applicationProperties);
+        isPrior.setmaxMajorVersion(4);
+        isPrior.setmaxMinorVersion(3);
+        this.old = isPrior.shouldDisplay(null);
     }
     
     /**
@@ -69,8 +80,12 @@ public class ChartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
     	Map<String, Object> velocityValues = new HashMap<String, Object>();
     	
-    	User user = authenticationContext.getUser();
-		I18nHelper i18nHelper = new I18nBean(user);
+    	I18nHelper i18nHelper;
+    	if(old){
+    		i18nHelper = OldUser.getI18nHelper(authenticationContext);
+    	}else{
+    		i18nHelper = NewUser.getI18nHelper(authenticationContext);
+    	}
 
 		String urlJenkinsServer = req.getParameter("jenkinsUrl");
 		String jenkinsJob = req.getParameter("job");
@@ -78,7 +93,6 @@ public class ChartServlet extends HttpServlet {
 		String type = "";
 		int hight = Integer.parseInt(req.getParameter("hight"));
 		int width = Integer.parseInt(req.getParameter("width"));
-		
 		
 		String trendURL = i18nHelper.getText(trendPropKey + ".key");
 		String trendTitle = i18nHelper.getText(trendPropKey + ".description");
