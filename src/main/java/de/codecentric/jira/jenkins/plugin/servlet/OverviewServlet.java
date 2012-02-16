@@ -53,7 +53,7 @@ import de.codecentric.jira.jenkins.plugin.model.BuildType;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsJob;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
-import de.codecentric.jira.jenkins.plugin.util.ServerList;
+import de.codecentric.jira.jenkins.plugin.model.ServerList;
 import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
 
 /**
@@ -110,7 +110,6 @@ public class OverviewServlet extends HttpServlet {
 			I18nHelper i18nHelper = new I18nBean(user);
 			
 			//check if urlJenkinsServer equals Server.name
-			serverList.setServerList();
 			JenkinsServer server = serverList.find(urlJenkinsServer);
 			if(server!=null){
 				urlJenkinsServer = server.getUrl();

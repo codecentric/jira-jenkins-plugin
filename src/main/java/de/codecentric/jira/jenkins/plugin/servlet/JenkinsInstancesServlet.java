@@ -31,10 +31,10 @@ import com.opensymphony.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
-import de.codecentric.jira.jenkins.plugin.util.ServerList;
+import de.codecentric.jira.jenkins.plugin.model.ServerList;
 
 public class JenkinsInstancesServlet extends HttpServlet {
-    private static final String TEMPLATE_PATH = "/templates/admin.vm";
+    private static final String TEMPLATE_PATH = "/templates/config.vm";
     private final JiraAuthenticationContext authenticationContext;
     private final TemplateRenderer templateRenderer;
     private final ServerList server;

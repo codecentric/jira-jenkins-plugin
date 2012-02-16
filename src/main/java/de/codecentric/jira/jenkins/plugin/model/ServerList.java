@@ -13,12 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.codecentric.jira.jenkins.plugin.util;
+package de.codecentric.jira.jenkins.plugin.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
 
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
@@ -33,7 +32,10 @@ public class ServerList {
 		this.setServerList();
 	}
 	
-	public void setServerList(){
+	/**
+	 * Retrieve all name/url pairs and save them as JenkinsServer in serverList
+	 */
+	private void setServerList(){
 		PluginSettings settings = settingsFactory.createGlobalSettings();
 		this.serverList = new ArrayList<JenkinsServer>();
     	String help = (String) settings.get("jiraJenkinsPlugin.number");
@@ -50,6 +52,7 @@ public class ServerList {
 	 * Returns all jenkins-instances
 	 */
 	public List<JenkinsServer> getServerList(){
+		this.setServerList();
     	return this.serverList;
     }
 	
@@ -57,6 +60,7 @@ public class ServerList {
 	 * Returns the jenkins-instance with name=name or null
 	 */
 	public JenkinsServer find(String name){
+		this.setServerList();
 		for(JenkinsServer server: this.serverList){
 			if(server.getName().equals(name)){
 				return  server;

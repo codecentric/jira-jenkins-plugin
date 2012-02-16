@@ -54,7 +54,7 @@ import com.opensymphony.user.User;
 import de.codecentric.jira.jenkins.plugin.model.BuildResult;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
-import de.codecentric.jira.jenkins.plugin.util.ServerList;
+import de.codecentric.jira.jenkins.plugin.model.ServerList;
 import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
 
 /**
@@ -110,7 +110,6 @@ public class RecentBuildsServlet extends HttpServlet {
 			String password = req.getParameter("password");
 
 			//check if urlJenkinsServer equals Server.name
-			serverList.setServerList();
 			JenkinsServer server = serverList.find(urlJenkinsServer);
 			if(server!=null){
 				urlJenkinsServer = server.getUrl();

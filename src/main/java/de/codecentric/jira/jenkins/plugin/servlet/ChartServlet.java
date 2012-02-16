@@ -36,7 +36,7 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 import com.opensymphony.user.User;
 
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
-import de.codecentric.jira.jenkins.plugin.util.ServerList;
+import de.codecentric.jira.jenkins.plugin.model.ServerList;
 
 /**
  *	This class is used to show a graphic from the Jenkins Server.
@@ -84,7 +84,6 @@ public class ChartServlet extends HttpServlet {
 		String trendTitle = i18nHelper.getText(trendPropKey + ".description");
 		
 		//check if urlJenkinsServer equals Server.name
-		serverList.setServerList();
 		JenkinsServer server = serverList.find(urlJenkinsServer);
 		if(server!=null){
 			urlJenkinsServer = server.getUrl();

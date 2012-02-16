@@ -2,7 +2,7 @@
     <table id="server" style="display:none" border="0" cellpadding="3" cellspacing="1" width="75%">
 		<tr>
 			<td>
-				<h3> $i18n.getText("admin.table.header") </h3>
+				<h3> $i18n.getText("servlet.table.header") </h3>
 			</td>
 		</tr>
 		#foreach($server in $serverList)
@@ -28,7 +28,7 @@
 	                   		<b>$i18n.getText("gadget.overview.complete")</b>
 	                    #end                        
                          ($i18n.getText("gadget.overview.property.jenkinsurl.name"): $jenkinsUrl) User: $user
-                         <input type="button" name="display_button" value=$i18n.getText("admin.button.show") onclick="display()"/>
+                         <input type="button" name="display_button" value=$i18n.getText("servlet.button.show") onclick="display()"/>
                     </td>
                 </tr>
                 <tr class=rowNormal>
