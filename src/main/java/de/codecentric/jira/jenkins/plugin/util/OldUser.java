@@ -15,8 +15,6 @@
  */
 package de.codecentric.jira.jenkins.plugin.util;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.util.I18nHelper;
 import com.atlassian.jira.web.bean.I18nBean;
