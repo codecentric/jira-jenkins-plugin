@@ -38,7 +38,7 @@ import de.codecentric.jira.jenkins.plugin.util.NewUser;
 import de.codecentric.jira.jenkins.plugin.util.OldUser;
 
 public class JenkinsInstancesServlet extends HttpServlet {
-    private static final String TEMPLATE_PATH = "/templates/config.vm";
+	private static final String TEMPLATE_PATH = "/templates/config.vm";
     private final JiraAuthenticationContext authenticationContext;
     private final TemplateRenderer templateRenderer;
     private final ServerList server;
