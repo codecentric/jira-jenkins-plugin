@@ -42,10 +42,10 @@ public class NewUser {
 	public static boolean checkAdminNew(UserManager userManager, HttpServletRequest req){
 		String username = userManager.getRemoteUsername(req);
 	    if (username != null && (!userManager.isSystemAdmin(username) || !userManager.isAdmin(username)))
-	    {
-        	return true;
-        }else{
+	    {	//user is not admin
         	return false;
+        }else{
+        	return true;
         }
 	}
 }

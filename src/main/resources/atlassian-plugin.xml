@@ -16,12 +16,12 @@
 	<component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory" />
 	<component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
 	
-    <resource type="i18n" name="config"
-              location="de.codecentric.jira.jenkins.plugin.properties/config"/>
-	<resource type="i18n" name="config_en"
-              location="de.codecentric.jira.jenkins.plugin.properties/config_en"/>
 	<resource type="i18n" name="config_de"
               location="de.codecentric.jira.jenkins.plugin.properties/config_de"/>
+    <resource type="i18n" name="config_en"
+              location="de.codecentric.jira.jenkins.plugin.properties/config_en"/>          
+    <resource type="i18n" name="config"
+              location="de.codecentric.jira.jenkins.plugin.properties/config"/>
 	<resource type="i18n" name="overview"
               location="de.codecentric.jira.jenkins.plugin.properties/overview"/>
     <resource type="i18n" name="overview_en"

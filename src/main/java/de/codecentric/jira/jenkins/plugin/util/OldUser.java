@@ -39,10 +39,10 @@ public class OldUser {
 	public static boolean checkAdminOld(JiraAuthenticationContext authenticationContext){
 		String username = authenticationContext.getUser().getFullName();
         if (username != null && (!authenticationContext.getUser().inGroup("jira-administrators")))
-        {
-        	return true;
-        }else{
+        {	//user is not admin
         	return false;
+        }else{
+        	return true;
         }
 	}
 }

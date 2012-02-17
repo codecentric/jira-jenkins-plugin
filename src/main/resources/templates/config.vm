@@ -52,6 +52,10 @@
 	            	</form>
 	            </tr>
 	            <tr>
+	            	<td></td>
+	            	<td colspan=60>$i18n.getText("servlet.add.warning")</td>
+	            </tr>
+	            <tr>
 	               	<form name="delForm" method="POST" action="$context.contextPath/plugins/servlet/jenkinsinstances">
 	               		<td>Name:</td>
       					<td><input name="name" type="text" size="30" maxlength="40"></td>

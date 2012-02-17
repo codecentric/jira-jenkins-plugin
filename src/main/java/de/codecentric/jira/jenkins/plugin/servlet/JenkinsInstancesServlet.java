@@ -64,13 +64,13 @@ public class JenkinsInstancesServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	if(old){
-    		if (OldUser.checkAdminOld(authenticationContext))
+    		if (!OldUser.checkAdminOld(authenticationContext))
             {
             	response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
     	}else{
-    		if (NewUser.checkAdminNew(userManager, request))
+    		if (!NewUser.checkAdminNew(userManager, request))
             {
             	response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 return;
@@ -97,13 +97,13 @@ public class JenkinsInstancesServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
     	if(old){
-    		if (OldUser.checkAdminOld(authenticationContext))
+    		if (!OldUser.checkAdminOld(authenticationContext))
             {
             	resp.sendError(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
     	}else{
-    		if (NewUser.checkAdminNew(userManager, req))
+    		if (!NewUser.checkAdminNew(userManager, req))
             {
             	resp.sendError(HttpServletResponse.SC_FORBIDDEN);
                 return;
