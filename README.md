@@ -54,3 +54,9 @@ Click on "Add Gadget" and select the gadget you want to display on your dashboar
 Go to the edit-page of the displayed gadget, in the upper righthand corner of the gadget.
 Enter the required fields and select save. 
 The gadget should now display the data from the jenkins-server.
+
+If the jenkins-server does not require authentication please leave the fields userName and password empty. 
+Otherwise it is possible that the data will not be displayed.
+
+If the jenkins-server requires authentication the Jenkins chart Gadget will display the selected graphic 
+only if you are logged in. Links displayed by the other gadgets have the same limitation and require you to be logged in to work.
