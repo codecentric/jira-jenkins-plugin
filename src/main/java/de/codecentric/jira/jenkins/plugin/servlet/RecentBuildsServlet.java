@@ -77,6 +77,7 @@ import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
  */
 public class RecentBuildsServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 160578673725081899L;
 	public static final String RSS_ALL = "/rssAll";
 	public static final String RSS_FAILS = "/rssFailed";
 	public static final String RSS_LATEST = "/rssLatest";
@@ -166,6 +167,13 @@ public class RecentBuildsServlet extends HttpServlet {
 			if(userName=="" && password=="" && !urlJenkinsServer.startsWith("https")){
 				buildRss = getBuildRss(urlJenkinsServer, view, job);
 				velocityValues.put("user", "anonymous");
+			}else if(userName==""){
+				defaultcreds = new UsernamePasswordCredentials(userName, password);
+		    	client.getState().setCredentials(new AuthScope(null, -1, AuthScope.ANY_REALM), defaultcreds);
+
+		    	buildRss = getBuildRssAuth(urlJenkinsServer, view, job);
+				
+		    	velocityValues.put("user", "anonymous");
 			}else{
 				defaultcreds = new UsernamePasswordCredentials(userName, password);
 		    	client.getState().setCredentials(new AuthScope(null, -1, AuthScope.ANY_REALM), defaultcreds);
@@ -197,7 +205,8 @@ public class RecentBuildsServlet extends HttpServlet {
         templateRenderer.render(TEMPLATE_PATH, velocityValues, resp.getWriter());		
     }
     
-    private List<JenkinsBuild> readBuilds(Document buildRss, int maxBuilds, I18nHelper i18nHelper) {
+    @SuppressWarnings("unchecked")
+	private List<JenkinsBuild> readBuilds(Document buildRss, int maxBuilds, I18nHelper i18nHelper) {
     	List<JenkinsBuild> builds = new ArrayList<JenkinsBuild>();
     	
     	//if jenkinsUrl is invalid but authorization was provided

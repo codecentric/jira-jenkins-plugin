@@ -38,6 +38,8 @@ import de.codecentric.jira.jenkins.plugin.util.NewUser;
 import de.codecentric.jira.jenkins.plugin.util.OldUser;
 
 public class JenkinsInstancesServlet extends HttpServlet {
+	
+	private static final long serialVersionUID = 829482035678105824L;
 	private static final String TEMPLATE_PATH = "/templates/config.vm";
     private final JiraAuthenticationContext authenticationContext;
     private final TemplateRenderer templateRenderer;

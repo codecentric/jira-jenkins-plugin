@@ -41,7 +41,7 @@ addChartWithCorrectWidth();
   function addChartWithCorrectWidth(){
     var imageElement = document.createElement('img');
     imageElement.setAttribute('src', '$trendUrl');
-    imageElement.setAttribute('width', $width);
+    imageElement.setAttribute('width', ($width)-10);
     imageElement.setAttribute('height', ($width/4|0));
     trendimage.appendChild(imageElement);
   }

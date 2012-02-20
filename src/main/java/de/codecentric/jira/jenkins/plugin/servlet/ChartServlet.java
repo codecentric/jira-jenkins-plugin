@@ -46,7 +46,8 @@ import de.codecentric.jira.jenkins.plugin.util.OldUser;
 
 public class ChartServlet extends HttpServlet {
 	
-    private static final String TEMPLATE_PATH = "/templates/chart.vm";
+	private static final long serialVersionUID = 3395705317898265220L;
+	private static final String TEMPLATE_PATH = "/templates/chart.vm";
     private final TemplateRenderer templateRenderer;
     private final JiraAuthenticationContext authenticationContext;
     private final boolean old;

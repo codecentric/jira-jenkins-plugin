@@ -76,6 +76,7 @@ import de.codecentric.jira.jenkins.plugin.util.URLEncoder;
  */ 
 public class OverviewServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 2927728737906256279L;
 	private static final String DATE_FORMAT = "yyMMddHHmmssZ";
 	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
@@ -163,6 +164,13 @@ public class OverviewServlet extends HttpServlet {
 			//Test if authorization is available
 			if(userName=="" && password=="" && !urlJenkinsServer.startsWith("https")){
 				portletData = getJobListByServer(urlJenkinsServer, view, i18nHelper);
+				velocityValues.put("user", "anonymous");
+			}else if(userName==""){
+				defaultcreds = new UsernamePasswordCredentials(userName, password);
+		    	client.getState().setCredentials(new AuthScope(null, -1, AuthScope.ANY_REALM), defaultcreds);
+
+				portletData = getJobListByServerAuth(urlJenkinsServer, view, i18nHelper);
+				
 				velocityValues.put("user", "anonymous");
 			}else{
 				defaultcreds = new UsernamePasswordCredentials(userName, password);
