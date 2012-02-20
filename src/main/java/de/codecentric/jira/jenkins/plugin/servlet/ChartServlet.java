@@ -62,7 +62,7 @@ public class ChartServlet extends HttpServlet {
         IsPriorToJiraVersion isPrior = new IsPriorToJiraVersion(applicationProperties);
         isPrior.setmaxMajorVersion(4);
         isPrior.setmaxMinorVersion(3);
-        this.old = isPrior.shouldDisplay(null);
+        this.old = isPrior.shouldDisplay(null);  
     }
     
     /**

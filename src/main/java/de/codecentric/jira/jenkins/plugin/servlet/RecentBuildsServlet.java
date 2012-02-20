@@ -26,7 +26,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.TrustManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +45,10 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
+import org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory;
+import org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -52,6 +63,7 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 
 import de.codecentric.jira.jenkins.plugin.conditions.IsPriorToJiraVersion;
 import de.codecentric.jira.jenkins.plugin.model.BuildResult;
+import de.codecentric.jira.jenkins.plugin.model.DefaultTrustManager;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
 import de.codecentric.jira.jenkins.plugin.model.ServerList;
@@ -91,6 +103,22 @@ public class RecentBuildsServlet extends HttpServlet {
         this.old = isPrior.shouldDisplay(null);
         
     	client.getParams().setAuthenticationPreemptive(true);
+    	
+    	//set SSLContext to accept all certificates
+    	try{
+    		SSLContext ctx = SSLContext.getInstance("TLS");
+    		ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
+    		SSLContext.setDefault(ctx);
+    	}catch(NoSuchAlgorithmException e){
+    		e.printStackTrace();
+    	}catch(KeyManagementException e){
+    		e.printStackTrace();
+    	}
+    	SecureProtocolSocketFactory secureProtocolSocketFactory = new SSLProtocolSocketFactory();
+
+    	Protocol.registerProtocol("https", new Protocol("https",
+    		   (ProtocolSocketFactory)secureProtocolSocketFactory, 443));
+
     }
     
     /**
@@ -113,7 +141,7 @@ public class RecentBuildsServlet extends HttpServlet {
     	}else{
     		i18nHelper = NewUser.getI18nHelper(authenticationContext);
     	}
-
+    	
 		try {
 			String urlJenkinsServer = req.getParameter("jenkinsUrl");
 			String view = req.getParameter("view");
@@ -126,7 +154,7 @@ public class RecentBuildsServlet extends HttpServlet {
 			JenkinsServer server = serverList.find(urlJenkinsServer);
 			if(server!=null){
 				urlJenkinsServer = server.getUrl();
-			}
+			} 
 			
 			if (urlJenkinsServer.lastIndexOf('/') < urlJenkinsServer.length()-1) {
 				urlJenkinsServer += "/";
@@ -135,7 +163,7 @@ public class RecentBuildsServlet extends HttpServlet {
 			Document buildRss;
 			
 			//Test if authorization is available
-			if(userName=="" && password==""){
+			if(userName=="" && password=="" && !urlJenkinsServer.startsWith("https")){
 				buildRss = getBuildRss(urlJenkinsServer, view, job);
 				velocityValues.put("user", "anonymous");
 			}else{
@@ -226,12 +254,20 @@ public class RecentBuildsServlet extends HttpServlet {
 		
 		PostMethod post = new PostMethod(url);
 		Document buildRss = null;
+		post.setDoAuthentication( true );
 		
 		try{
 			client.executeMethod(post);
 			buildRss = new SAXReader().read(post.getResponseBodyAsStream());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+		} catch (SSLException e) {
+			if(e.getMessage().equals("Unrecognized SSL message, plaintext connection?")){
+				urlJenkinsServer = urlJenkinsServer.replaceFirst("s", "");
+				this.getBuildRssAuth(urlJenkinsServer, view, job);
+			}else{
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{

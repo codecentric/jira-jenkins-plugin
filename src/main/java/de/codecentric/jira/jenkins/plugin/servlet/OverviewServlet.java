@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.TrustManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +42,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.*;
 import org.apache.commons.httpclient.methods.*;
+import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
+import org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory;
+import org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
@@ -50,6 +61,7 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 
 import de.codecentric.jira.jenkins.plugin.conditions.IsPriorToJiraVersion;
 import de.codecentric.jira.jenkins.plugin.model.BuildType;
+import de.codecentric.jira.jenkins.plugin.model.DefaultTrustManager;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsBuild;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsJob;
 import de.codecentric.jira.jenkins.plugin.model.JenkinsServer;
@@ -92,7 +104,21 @@ public class OverviewServlet extends HttpServlet {
         this.old = isPrior.shouldDisplay(null);
   	  
     	client.getParams().setAuthenticationPreemptive(true);
-    	  
+    	
+    	//set SSLContext to accept all certificates
+    	try{
+    		SSLContext ctx = SSLContext.getInstance("TLS");
+    		ctx.init(new KeyManager[0], new TrustManager[] {new DefaultTrustManager()}, new SecureRandom());
+    		SSLContext.setDefault(ctx);
+    	}catch(NoSuchAlgorithmException e){
+    		e.printStackTrace();
+    	}catch(KeyManagementException e){
+    		e.printStackTrace();
+    	}
+    	SecureProtocolSocketFactory secureProtocolSocketFactory = new SSLProtocolSocketFactory();
+
+    	Protocol.registerProtocol("https", new Protocol("https",
+    		   (ProtocolSocketFactory)secureProtocolSocketFactory, 443));  
        }
     
     /**
@@ -135,7 +161,7 @@ public class OverviewServlet extends HttpServlet {
 			List<JenkinsJob> portletData;
 			
 			//Test if authorization is available
-			if(userName=="" && password==""){
+			if(userName=="" && password=="" && !urlJenkinsServer.startsWith("https")){
 				portletData = getJobListByServer(urlJenkinsServer, view, i18nHelper);
 				velocityValues.put("user", "anonymous");
 			}else{
@@ -176,14 +202,23 @@ public class OverviewServlet extends HttpServlet {
 		String jobListUrl = urlJenkinsServer + (StringUtils.isNotEmpty(view) ? "view/" + view : "")
 				+ "/api/xml?depth=1";
 		PostMethod post = new PostMethod(jobListUrl);
+		post.setDoAuthentication( true );
 		
 		Document jobsDocument = null;
 		try{
-		client.executeMethod(post);
-		jobsDocument = new SAXReader().read(post.getResponseBodyAsStream());
+			client.executeMethod(post);
+			jobsDocument = new SAXReader().read(post.getResponseBodyAsStream());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (SSLException e) {
+			if(e.getMessage().equals("Unrecognized SSL message, plaintext connection?")){
+				urlJenkinsServer = urlJenkinsServer.replaceFirst("s", "");
+				this.getJobListByServerAuth(urlJenkinsServer, view, i18nHelper);
+				return jobList;
+			}else{
+				e.printStackTrace();
+			}
+		} catch (IOException e){
 			e.printStackTrace();
 		}finally{
 			post.releaseConnection(); 
@@ -222,6 +257,8 @@ public class OverviewServlet extends HttpServlet {
 		String encodedJobName = URLEncoder.encodeForURL(jobName);
 		PostMethod post = new PostMethod(urlJenkinsServer + "job/" + encodedJobName + "/" + type.toString()
 				+ "/buildNumber");
+		post.setDoAuthentication( true );
+		
 		try {
 			client.executeMethod(post);
 			build.setNumber(post.getResponseBodyAsString());
@@ -238,6 +275,8 @@ public class OverviewServlet extends HttpServlet {
 		// and time exist ...
 		post = new PostMethod(urlJenkinsServer + "job/" + encodedJobName + "/" + type.toString()
 				+ "/buildTimestamp?format=" + DATE_FORMAT);
+		post.setDoAuthentication( true );
+		
 		try {
 			client.executeMethod(post);
 			build.setTimestamp(SIMPLE_DATE_FORMAT.parse(post.getResponseBodyAsString())); 

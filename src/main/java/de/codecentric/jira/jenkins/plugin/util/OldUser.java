@@ -23,6 +23,7 @@ import com.opensymphony.user.User;
 /**
  *	User specific actions for jiraversions prior to jira 4.3
  */
+@SuppressWarnings("deprecation")
 public class OldUser {
 
 	/**
